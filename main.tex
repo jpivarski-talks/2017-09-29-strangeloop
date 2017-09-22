@@ -416,11 +416,63 @@
 %% \end{columns}
 %% \end{frame}
 
-\begin{frame}{}
+\begin{frame}[fragile]{Single-threaded iteration over one attribute in many objects}
+\vspace{0.25 cm}
+\begin{center}
+\begin{minipage}{0.85\linewidth}
+\small
+%% \begin{lstlisting}[language=femtocode]
+%% dataset.histogram(90, 80, 170, flatten({event =>
+%%     event.tracks.map(t => t.trackMomentum)
+%% }))
+%% \end{lstlisting}
+\begin{verbatim}
+for (i = 0;  i < numEvents;  i++)
+    for (j = 0;  j < events[i].numTracks;  j++)
+        fill_histogram(events[i].tracks[j].trackMomentum);
+\end{verbatim}
+\end{minipage}
+\end{center}
 
+\mbox{ } \hfill \textcolor{darkblue}{Four orders of magnitude between how we currently access data} \hfill \mbox{ }
 
+\mbox{ } \hfill \textcolor{darkblue}{and how we could access data!} \hfill \mbox{ }
 
+\vspace{-0.75 cm}
+\begin{center}
+\vspace{0.5 cm}
+\renewcommand{\arraystretch}{1.5}
+\small
+\begin{tabular}{r l}
+\large 0.018 MHz & \large our current framework \\
+\uncover<5->{\large 0.029 MHz & \large deserialize into {\tt\normalsize Track} instances with all 95 track attributes} \\
+\uncover<4->{\large 2.8 MHz & \large deserialize into {\tt\normalsize std::vectors} of single-attribute \mbox{{\tt\normalsize Track} instances\hspace{-1 cm}}} \\
+\uncover<3->{\large 12 MHz & \large allocate {\tt\normalsize std::vector<double>} on heap for each event; \mbox{then delete\hspace{-1 cm}}} \\
+\uncover<2->{\large 31 MHz & \large allocate {\tt\normalsize std::vector<double>} on stack for each event} \\
+\large 250 MHz & \large minimal loop over flattened {\tt\normalsize trackMomentum} array \\
+\end{tabular}
+\end{center}
+
+\mbox{ } \hfill \uncover<6->{\textcolor{darkblue}{We can do something about this without introducing a new language.}} \hfill \mbox{ }
 \end{frame}
+
+\begin{frame}{To be fair\ldots}
+\vspace{0.5 cm}
+\large The current framework is never used to fill only one histogram.
+
+\vspace{0.5 cm}
+It's usually used to extract a subset of events and attributes for the physicist to analyze locally (laptop, university cluster, national lab).
+
+\vspace{0.25 cm}
+\begin{enumerate}
+\item<2-> These jobs take weeks or months\only<2->{\footnote{one analyst claimed 1.5 years!}}.
+\item<3-> The data analyst\only<3->{\footnote{usually the youngest graduate student}} has to manage sets of files and chase down failed jobs.
+\item<4-> This process takes so long that analysts hedge by requesting more data, events and attributes they're not sure they'll need.
+\item<5-> So the process is slower and the downloaded data is larger.
+\item<6-> {\tt\normalsize GOTO \textcolor{darkblue}{1}}.
+\end{enumerate}
+\end{frame}
+
 
 
 \end{document}

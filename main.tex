@@ -20,6 +20,7 @@
 \usepackage{array}
 \usepackage{bold-extra}
 \usepackage{minted}
+\usepackage[thicklines]{cancel}
 
 \xdefinecolor{darkblue}{rgb}{0.1,0.1,0.7}
 \xdefinecolor{darkgreen}{rgb}{0,0.5,0}
@@ -110,10 +111,15 @@
 \uncover<2->{\mbox{ } \hfill \includegraphics[width=0.7\linewidth]{aws-snowmobile.jpg}\hspace{-1 cm}}
 \end{frame}
 
-\begin{frame}{Our software developed before the big data ecosystem}
-\vspace{0.25 cm}
+\begin{frame}{Our software developed \only<1>{outside}\only<2->{\xcancel{outside} before} the big data ecosystem}
+\vspace{0.5 cm}
+\begin{uncoverenv}<3->
+\fbox{\begin{minipage}{5 cm}
 It's my job to try to find ways to bridge the divide.
+\end{minipage}}
+\end{uncoverenv}
 
+\vspace{-1.43 cm}
 \includegraphics[width=\linewidth]{separation.png}
 \end{frame}
 
@@ -151,7 +157,7 @@ There are also {\it essential} qualities that current big data systems don't off
 \vspace{8.4 cm}
 \end{frame}
 
-\begin{frame}{Particle physics data are not stored in databases}
+\begin{frame}{Particle physics data are not even stored in databases!}
 
 \begin{itemize}\setlength{\itemsep}{0.5 cm}
 \item We don't benefit from indexing, query planning, or high-level query languages.
@@ -184,7 +190,7 @@ There are also {\it essential} qualities that current big data systems don't off
 \item<3-> Cross-links (pointers) could be supported by a graph database.
 
 \vspace{0.2 cm}
-\textcolor{gray}{(List indexes work well enough for our large number of small graphs.)}
+\textcolor{gray}{(Though list indexes work well enough for our large number of small graphs.)}
 
 \end{itemize}
 
@@ -207,23 +213,28 @@ There are also {\it essential} qualities that current big data systems don't off
 
 \vspace{0.5 cm}
 \begin{uncoverenv}<6->
+\fbox{\begin{minipage}{\linewidth}
 To give a sense of the problem, I'll walk through a sample analysis.
+\end{minipage}}
 \end{uncoverenv}
 \end{itemize}
 \end{columns}
 \end{frame}
 
+\begin{frame}{}
 
-
-
-
-
-\begin{frame}{Publish with 5\,154 of your closest friends}
-\vspace{0.5 cm}
-(Author list of a recent paper)
-
-\vspace{0.25 cm}
-\includegraphics[width=\linewidth]{authors.pdf}
 \end{frame}
+
+
+
+
+
+%% \begin{frame}{Publish with 5\,154 of your closest friends}
+%% \vspace{0.5 cm}
+%% (Author list of a recent paper)
+
+%% \vspace{0.25 cm}
+%% \includegraphics[width=\linewidth]{authors.pdf}
+%% \end{frame}
 
 \end{document}

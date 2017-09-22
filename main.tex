@@ -36,26 +36,23 @@
   basicstyle=\ttfamily\small,         % size of fonts used for the code
   breaklines=true,                    % automatic line breaking only at whitespace
   captionpos=b,                       % sets the caption-position to bottom
-  commentstyle=\color{commentgreen},  % comment style
+  commentstyle=\color{darkorange},  % comment style
   escapeinside={\%*}{*)},             % if you want to add LaTeX within your code
   keywordstyle=\color{blue},          % keyword style
+  keywordstyle=[2]\color{stringmauve},          % keyword style
+  keywordstyle=[3]\color{darkgreen},          % keyword style
   stringstyle=\color{stringmauve},    % string literal style
   showstringspaces=false,
   showlines=true
 }
 
-\lstdefinelanguage{scala}{
-  morekeywords={abstract,case,catch,class,def,%
-    do,else,extends,false,final,finally,%
-    for,if,implicit,import,match,mixin,%
-    new,null,object,override,package,%
-    private,protected,requires,return,sealed,%
-    super,this,throw,trait,true,try,%
-    type,val,var,while,with,yield},
-  otherkeywords={=>,<-,<\%,<:,>:,\#,@},
+\lstdefinelanguage{femtocode}{
+  keywords = [2]{histogram,filter,distinctpairs,table,map,flatten},%
+  keywords = [3]{tracks,calorimeterEnergy,trackMomentum,outerHits,charge},%
+  morekeywords={def,and},
+  otherkeywords={=>,<-,<\%,<,>,/,*,:,\#,@},
   sensitive=true,
-  morecomment=[l]{//},
-  morecomment=[n]{/*}{*/},
+  comment=[l]{\#},
   morestring=[b]",
   morestring=[b]',
   morestring=[b]"""
@@ -362,6 +359,59 @@
 %% \end{columns}
 %% \end{frame}
 
+\begin{frame}[fragile]{Femtocode}
+\vspace{0.35 cm}
+The problems can be alleviated by adding functions as first-class objects to SQL.
+
+\vspace{0.2 cm}
+Last year, I started developing Femtocode: a declarative, functional query language with an object-oriented syntax for physicists.
+
+\begin{center}
+\small
+\begin{lstlisting}[language=femtocode]
+dataset.histogram(90, 80, 170, flatten({event =>
+    electrons = event.tracks.filter(
+        e => 0.9 < e.calorimeterEnergy / e.trackMomentum < 1.1)
+    muons = event.tracks.filter(m => m.outerHits > 4)
+
+    def goodz(p1, p2):
+        p1.charge * p2.charge < 0 and 60 < mass(p1, p2) < 120
+
+    ez = electrons.distinctpairs.filter(goodz)
+    mz =     muons.distinctpairs.filter(goodz)
+
+    table(ez, mz).map((e1, e2), (m1, m2) => mass(e1, e2, m1, m2))
+}))
+\end{lstlisting}
+\end{center}
+\end{frame}
+
+\begin{frame}{}
+\vspace{1 cm}
+\large
+\begin{columns}[t]
+\column{0.30\linewidth}
+By shrink-wrapping a language around our problem, we could add nice features:
+\begin{itemize}
+\item automatically vectorize objects
+\item 100\% compile-time error checking with dependent types
+\end{itemize}
+
+\column{0.33\linewidth}
+Since last year, other projects started adding functional programming to query languages:
+\begin{itemize}
+\item SparkSQL 3.0's {\tt\small TRANSFORM} keyword
+\item DataFun: Michael Arntzenius's talk in US Regency AB!
+\end{itemize}
+
+\column{0.35\linewidth}
+At the same time, we discovered that Femtocode's internal data representation is orders of magnitude faster than our current methods.
+
+\vspace{0.2 cm}
+We can apply the technique without introducing a new language.
+
+\end{columns}
+\end{frame}
 
 
 \end{document}

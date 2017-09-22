@@ -111,7 +111,7 @@
 \uncover<2->{\mbox{ } \hfill \includegraphics[width=0.7\linewidth]{aws-snowmobile.jpg}\hspace{-1 cm}}
 \end{frame}
 
-\begin{frame}{Our software developed \only<1>{outside}\only<2->{\xcancel{outside} before} the big data ecosystem}
+\begin{frame}{Our software developed \only<1>{outside}\only<2->{\xcancel{outside} \underline{before}} the big data ecosystem}
 \vspace{0.5 cm}
 \begin{uncoverenv}<3->
 \fbox{\begin{minipage}{5 cm}
@@ -133,7 +133,7 @@ The obstacles are not just {\it accidental}--- artifacts of technology choice \\
 There are also {\it essential} qualities that current big data systems don't offer.
 
 \vspace{1 cm}
-\uncover<2->{This represents an {\it opportunity} on both sides: alien civilizations that evolved independenly can stand to learn a lot from each other.}
+\uncover<2->{\textcolor{darkblue}{This represents an {\it opportunity} on both sides: alien civilizations that evolved independenly can learn a lot from each other!}}
 \end{center}
 \end{frame}
 
@@ -145,27 +145,30 @@ There are also {\it essential} qualities that current big data systems don't off
 \includegraphics[width=\linewidth]{complex-atlas-collision-art.jpg}
 \end{columns}
 
-\vspace{-8.4 cm}
-\uncover<2->{\textcolor{white}{\Huge\bf It's not the size.}}
+\vspace{-8.7 cm}
+\uncover<2->{\textcolor{white}{\Huge\bf It's not the size (100's of PB).}}
 
 \vspace{0.5 cm}
-\uncover<3->{\textcolor{white}{\Huge\bf Arguably, it's the complexity.}}
+\uncover<3->{\textcolor{white}{\Huge\bf Arguably, it's the \underline{complexity}.}}
 
 \vspace{3.3 cm}
 \uncover<4->{\textcolor{white}{\Huge\bf This picture represents one ``row'' in our data ``table.''}}
 
-\vspace{8.4 cm}
+\vspace{8.7 cm}
 \end{frame}
 
-\begin{frame}{Particle physics data are not even stored in databases!}
+\begin{frame}{``Row'' and ``table'' in quotation marks\ldots}
+\vspace{0.75 cm}
+\textcolor{darkblue}{\LARGE Particle physics data are not stored in databases.}
 
+\vspace{0.5 cm}
 \begin{itemize}\setlength{\itemsep}{0.5 cm}
-\item We don't benefit from indexing, query planning, or high-level query languages.
-\item<2-> Every data pull is a custom C++ program, accessing lists of files, taking months while the user chases down failures and stragglers.
-\item<3-> But if our data {\it were} in a conventional (relational or NoSQL) database, the first thing we'd do is extract it and work with files again.
+\item<2-> We don't benefit from indexing, query planning, or high-level query languages.
+\item<3-> Every data pull is a custom C++ program, accessing lists of files, taking months while the user chases down failures and stragglers.
+\item<4-> But if our data {\it were} in a conventional (relational or NoSQL) database, the first thing we'd do is extract it and work with files again.
 \end{itemize}
 \begin{center}
-\huge \uncover<3->{Why?}
+\huge \uncover<5->{Why?}
 \end{center}
 \end{frame}
 

@@ -390,26 +390,27 @@ dataset.histogram(90, 80, 170, flatten({event =>
 \vspace{1 cm}
 \large
 \begin{columns}[t]
-\column{0.30\linewidth}
-By shrink-wrapping a language around our problem, we could add nice features:
+\column{0.32\linewidth}
+By shrink-wrapping the language around our problem, we could add some nice features:
 \begin{itemize}
-\item automatically vectorize objects
+\item automatically vectorize calculations across objects
 \item 100\% compile-time error checking with dependent types
 \end{itemize}
 
-\column{0.33\linewidth}
-Since last year, other projects started adding functional programming to query languages:
+\column{0.31\linewidth}
+\uncover<2->{Since last year, other projects started adding functional programming to query languages:}
+\begin{uncoverenv}<2->
 \begin{itemize}
 \item SparkSQL 3.0's {\tt\small TRANSFORM} keyword
 \item DataFun: Michael Arntzenius's talk in US Regency AB!
 \end{itemize}
+\end{uncoverenv}
 
 \column{0.35\linewidth}
-At the same time, we discovered that Femtocode's internal data representation is orders of magnitude faster than our current methods.
+\uncover<3->{At the same time, we discovered that Femtocode's internal data representation is orders of magnitude faster than our current methods.}
 
 \vspace{0.2 cm}
-We can apply the technique without introducing a new language.
-
+\uncover<3->{We can apply the technique without introducing a new language.}
 \end{columns}
 \end{frame}
 

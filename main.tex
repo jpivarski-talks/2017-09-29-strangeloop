@@ -81,201 +81,232 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Particle physics: the most industrial field of academia}
-\vspace{0.15 cm}
-\begin{columns}
-\column{0.37\linewidth}
-\begin{center}
-\begin{minipage}{0.8\linewidth}
+%%%% START
 
-\textcolor{darkblue}{The goals are academic:} to explore strange new phenomena; to seek out new particles and new \mbox{interactions\ldots}
+%% \begin{frame}{Particle physics: the most industrial field of academia}
+%% \vspace{0.15 cm}
+%% \begin{columns}
+%% \column{0.37\linewidth}
+%% \begin{center}
+%% \begin{minipage}{0.8\linewidth}
 
-\vspace{0.5 cm}
-\textcolor{darkblue}{The scale is industrial:} \mbox{billion} dollar hardware, planning on decadal time- scales, \mbox{millions} of lines of code\ldots
+%% \textcolor{darkblue}{The goals are academic:} to explore strange new phenomena; to seek out new particles and new \mbox{interactions\ldots}
 
-\vspace{0.5 cm}
-\end{minipage}
-\end{center}
+%% \vspace{0.5 cm}
+%% \textcolor{darkblue}{The scale is industrial:} \mbox{billion} dollar hardware, planning on decadal time- scales, \mbox{millions} of lines of code\ldots
 
-\column{0.77\linewidth}
-\includegraphics[width=\linewidth]{lhc-industrial-2.jpg}
+%% \vspace{0.5 cm}
+%% \end{minipage}
+%% \end{center}
 
-\end{columns}
-\end{frame}
+%% \column{0.77\linewidth}
+%% \includegraphics[width=\linewidth]{lhc-industrial-2.jpg}
 
-\begin{frame}{It's big data\ldots\ \only<2->{but not {\it really} big}}
-\vspace{0.35 cm}
-\includegraphics[width=0.73\linewidth]{cern-200pb.png}
+%% \end{columns}
+%% \end{frame}
 
-\vspace{-4.8 cm}
-\uncover<2->{\mbox{ } \hfill \includegraphics[width=0.7\linewidth]{aws-snowmobile.jpg}\hspace{-1 cm}}
-\end{frame}
+%% \begin{frame}{It's big data\ldots\ \only<2->{but not {\it really} big}}
+%% \vspace{0.35 cm}
+%% \includegraphics[width=0.73\linewidth]{cern-200pb.png}
 
-\begin{frame}{Our software developed \only<1>{outside}\only<2->{\xcancel{outside} \underline{before}} the big data ecosystem}
-\vspace{0.5 cm}
-\begin{uncoverenv}<3->
-\fbox{\begin{minipage}{5 cm}
-It's my job to try to find ways to bridge the divide.
-\end{minipage}}
-\end{uncoverenv}
+%% \vspace{-4.8 cm}
+%% \uncover<2->{\mbox{ } \hfill \includegraphics[width=0.7\linewidth]{aws-snowmobile.jpg}\hspace{-1 cm}}
+%% \end{frame}
 
-\vspace{-1.43 cm}
-\includegraphics[width=\linewidth]{separation.png}
-\end{frame}
+%% \begin{frame}{Our software developed \only<1>{outside}\only<2->{\xcancel{outside} \underline{before}} the big data ecosystem}
+%% \vspace{0.5 cm}
+%% \begin{uncoverenv}<3->
+%% \fbox{\begin{minipage}{5 cm}
+%% It's my job to try to find ways to bridge the divide.
+%% \end{minipage}}
+%% \end{uncoverenv}
 
-\begin{frame}{}
-\vspace{1 cm}
-\large
-\begin{center}
-The obstacles are not just {\it accidental}--- artifacts of technology choice \\ (e.g.\ C++ in particle physics and Java in the Hadoop/Spark world).
+%% \vspace{-1.43 cm}
+%% \includegraphics[width=\linewidth]{separation.png}
+%% \end{frame}
 
-\vspace{1 cm}
-There are also {\it essential} qualities that current big data systems don't offer.
+%% \begin{frame}{}
+%% \vspace{1 cm}
+%% \large
+%% \begin{center}
+%% The obstacles are not just {\it accidental}--- artifacts of technology choice \\ (e.g.\ C++ in particle physics and Java in the Hadoop/Spark world).
 
-\vspace{1 cm}
-\uncover<2->{\textcolor{darkblue}{This represents an {\it opportunity} on both sides: alien civilizations that evolved independenly can learn a lot from each other!}}
-\end{center}
-\end{frame}
+%% \vspace{1 cm}
+%% There are also {\it essential} qualities that current big data systems don't offer.
 
-\begin{frame}{So, what is unique about particle physics data?}
+%% \vspace{1 cm}
+%% \uncover<2->{\textcolor{darkblue}{This represents an {\it opportunity} on both sides: alien civilizations that evolved independenly can learn a lot from each other!}}
+%% \end{center}
+%% \end{frame}
 
-\begin{columns}
-\column{1.15\linewidth}
-\vspace{0.11 cm}
-\includegraphics[width=\linewidth]{complex-atlas-collision-art.jpg}
-\end{columns}
+%% \begin{frame}{So, what is unique about particle physics data?}
 
-\vspace{-8.7 cm}
-\uncover<2->{\textcolor{white}{\Huge\bf It's not the size (100's of PB).}}
+%% \begin{columns}
+%% \column{1.15\linewidth}
+%% \vspace{0.11 cm}
+%% \includegraphics[width=\linewidth]{complex-atlas-collision-art.jpg}
+%% \end{columns}
 
-\vspace{0.5 cm}
-\uncover<3->{\textcolor{white}{\Huge\bf Arguably, it's the \underline{complexity}.}}
+%% \vspace{-8.7 cm}
+%% \uncover<2->{\textcolor{white}{\huge\bf It's not the size (100's of PB).}}
 
-\vspace{3.3 cm}
-\uncover<4->{\textcolor{white}{\Huge\bf This picture represents one ``row'' in our data ``table.''}}
+%% \vspace{0.5 cm}
+%% \uncover<3->{\textcolor{white}{\huge\bf Arguably, it's the \underline{complexity}.}}
 
-\vspace{8.7 cm}
-\end{frame}
+%% \vspace{3.9 cm}
+%% \uncover<4->{\textcolor{white}{\huge\bf This picture represents one ``row'' in our data ``table.''}}
 
-\begin{frame}{``Row'' and ``table'' in quotation marks\ldots}
-\vspace{0.75 cm}
-\textcolor{darkblue}{\LARGE Particle physics data are not stored in databases.}
+%% \vspace{8.7 cm}
+%% \end{frame}
 
-\vspace{0.5 cm}
-\begin{itemize}\setlength{\itemsep}{0.5 cm}
-\item<2-> We don't benefit from indexing, query planning, or high-level query languages.
-\item<3-> Every data pull is a custom C++ program, accessing lists of files, taking months while the user chases down failures and stragglers.
-\item<4-> But if our data {\it were} in a conventional (relational or NoSQL) database, the first thing we'd do is extract it and work with files again.
-\end{itemize}
-\begin{center}
-\huge \uncover<5->{Why?}
-\end{center}
-\end{frame}
+%% \begin{frame}{``Row'' and ``table'' in quotation marks\ldots}
+%% \vspace{0.75 cm}
+%% \textcolor{darkblue}{\LARGE Particle physics data are not stored in databases.}
 
-\begin{frame}
-\vspace{0.5 cm}
-\begin{columns}[t]
-\column{0.5\linewidth}
-\begin{center}
-\Large Our data are deeply nested \\ and cross-linked
+%% \vspace{0.5 cm}
+%% \begin{itemize}\setlength{\itemsep}{0.5 cm}
+%% \item<2-> We don't benefit from indexing, query planning, or high-level query languages.
+%% \item<3-> Every data pull is a custom C++ program, accessing lists of files, taking months while the user chases down failures and stragglers.
+%% \item<4-> But if our data {\it were} in a conventional (relational or NoSQL) database, the first thing we'd do is extract it and work with files again.
+%% \end{itemize}
+%% \begin{center}
+%% \huge \uncover<5->{Why?}
+%% \end{center}
+%% \end{frame}
 
-\vspace{-0.25 cm}
-\rule{\linewidth}{0.8 pt}
-\end{center}
+%% \begin{frame}
+%% \vspace{0.5 cm}
+%% \begin{columns}[t]
+%% \column{0.5\linewidth}
+%% \begin{center}
+%% \Large Our data are deeply nested \\ and cross-linked
 
-\vspace{-0.25 cm}
-\begin{itemize}\setlength{\itemsep}{0.5 cm}
-\item<2-> Not a problem nowadays, as Drill, Parquet, and Arrow can explode nested structures into columns for fast, sparse access.
+%% \vspace{-0.25 cm}
+%% \rule{\linewidth}{0.8 pt}
+%% \end{center}
 
-\vspace{0.2 cm}
-\textcolor{gray}{(We've been doing it since the 90's.)}
+%% \vspace{-0.25 cm}
+%% \begin{itemize}\setlength{\itemsep}{0.5 cm}
+%% \item<2-> Not a problem nowadays, as Drill, Parquet, and Arrow can explode nested structures into columns for fast, sparse access.
 
-\item<3-> Cross-links (pointers) could be supported by a graph database.
+%% \vspace{0.2 cm}
+%% \textcolor{gray}{(We've been doing it since the 90's.)}
 
-\vspace{0.2 cm}
-\textcolor{gray}{(Though list indexes work well enough for our large number of small graphs.)}
+%% \item<3-> Cross-links (pointers) could be supported by a graph database.
 
-\end{itemize}
+%% \vspace{0.2 cm}
+%% \textcolor{gray}{(Though list indexes work well enough for our large number of small graphs.)}
 
-\column{0.5\linewidth}
-\begin{center}
-\Large The operations we perform make intensive use of that structure
+%% \end{itemize}
 
-\vspace{-0.25 cm}
-\rule{\linewidth}{0.8 pt}
-\end{center}
+%% \column{0.5\linewidth}
+%% \begin{center}
+%% \Large The operations we perform make intensive use of that structure
 
-\vspace{-0.25 cm}
-\begin{itemize}
-\item<4-> We frequently need to search sublists under constraints, optimize pairings, iterate over combinatorics\ldots
+%% \vspace{-0.25 cm}
+%% \rule{\linewidth}{0.8 pt}
+%% \end{center}
 
-\item<5-> Even the simplest particle physics search criteria would require explodes, tags, and joins in SQL.
+%% \vspace{-0.25 cm}
+%% \begin{itemize}
+%% \item<4-> We frequently need to search sublists under constraints, optimize pairings, iterate over combinatorics\ldots
 
-\vspace{0.2 cm}
-\href{https://stackoverflow.com/q/38831961/1623645}{\textcolor{gray}{\scriptsize (https://stackoverflow.com/q/38831961/1623645)}}
+%% \item<5-> Even the simplest particle physics search criteria would require explodes, tags, and joins in SQL.
 
-\vspace{0.5 cm}
-\begin{uncoverenv}<6->
-\fbox{\begin{minipage}{\linewidth}
-To give a sense of the problem, I'll walk through a sample analysis.
-\end{minipage}}
-\end{uncoverenv}
-\end{itemize}
-\end{columns}
-\end{frame}
+%% \vspace{0.2 cm}
+%% \href{https://stackoverflow.com/q/38831961/1623645}{\textcolor{gray}{\scriptsize (https://stackoverflow.com/q/38831961/1623645)}}
 
-\begin{frame}{From raw signals to tracks}
-\vspace{0.15 cm}
-\begin{columns}[b]
-\column{0.515\linewidth}
-\hspace{-0.5 cm}\includegraphics[width=\linewidth]{cleoiii.jpg}
+%% \vspace{0.5 cm}
+%% \begin{uncoverenv}<6->
+%% \fbox{\begin{minipage}{\linewidth}
+%% To give a sense of the problem, I'll walk through the steps of an analysis.
+%% \end{minipage}}
+%% \end{uncoverenv}
+%% \end{itemize}
+%% \end{columns}
+%% \end{frame}
 
-\only<1-4>{\vspace{0.75 cm}}
+%% \begin{frame}{From raw signals to tracks}
+%% \vspace{0.15 cm}
+%% \begin{columns}[b]
+%% \column{0.515\linewidth}
+%% \hspace{-0.5 cm}\includegraphics[width=\linewidth]{cleoiii.jpg}
 
-\column{0.55\linewidth}
-\begin{onlyenv}<1,2,6>
-\mbox{\hspace{-0.5 cm}\begin{minipage}{0.95\linewidth}
-\only<1>{Can you see the particle tracks?}
-\only<2>{How about now?}
-\only<6>{Raw data could have been a (sparsely filled) table, but tracks are an arbitrary-length list of objects.}
+%% \only<1-4>{\vspace{0.75 cm}}
 
-\vspace{-1 cm}
-\end{minipage}}
-\end{onlyenv}
+%% \column{0.55\linewidth}
+%% \begin{onlyenv}<1,2,6>
+%% \mbox{\hspace{-0.5 cm}\begin{minipage}{0.95\linewidth}
+%% \only<1>{Can you see the particle tracks?}
+%% \only<2>{How about now?}
+%% \only<6>{Raw data could have been a (sparsely filled) table, but tracks are an arbitrary-length list of objects.}
 
+%% \vspace{-1 cm}
+%% \end{minipage}}
+%% \end{onlyenv}
+
+%% \vspace{0.25 cm}
+%% \only<1>{\includegraphics[width=\linewidth]{tracking-1.png}}
+%% \only<2>{\includegraphics[width=\linewidth]{tracking-2.png}}
+%% \only<3>{\includegraphics[width=\linewidth]{tracking-3.png}}
+%% \only<4>{\includegraphics[width=\linewidth]{tracking-4.png}}
+%% \only<5>{\includegraphics[width=\linewidth]{tracking-5.png}}
+%% \only<6>{\includegraphics[width=\linewidth]{tracking-6.png}}
+
+%% \only<1-4>{\vspace{0.25 cm}}
+%% \vspace{0.25 cm}
+%% \end{columns}
+%% \end{frame}
+
+%% \begin{frame}{From tracks to particles}
+%% \vspace{0.25 cm}
+%% Tracks are long-lived particles (on the nanosecond scale) that came from the decay of very short-lived particles.
+
+%% \vspace{-0.5 cm}
+%% \begin{center}
+%% \includegraphics[width=0.9\linewidth]{lhcb.png}
+%% \end{center}
+
+%% \vspace{-0.25 cm}
+%% Associations between them, such as where they intersect, which pairs have the right energy to be common decay products, etc.\ are also valuable information!
+%% \end{frame}
+
+%% \begin{frame}{And there are a lot of combinations to consider\ldots}
+%% \vspace{0.15 cm}
+%% \begin{columns}
+%% \column{1.2\linewidth}
+%% \includegraphics[width=\linewidth]{pileup.png}
+%% \end{columns}
+%% \end{frame}
+
+\begin{frame}{Example analysis}
 \vspace{0.25 cm}
-\only<1>{\includegraphics[width=\linewidth]{tracking-1.png}}
-\only<2>{\includegraphics[width=\linewidth]{tracking-2.png}}
-\only<3>{\includegraphics[width=\linewidth]{tracking-3.png}}
-\only<4>{\includegraphics[width=\linewidth]{tracking-4.png}}
-\only<5>{\includegraphics[width=\linewidth]{tracking-5.png}}
-\only<6>{\includegraphics[width=\linewidth]{tracking-6.png}}
+\mbox{\hspace{0.25 cm}\begin{columns}[b]
+\column{0.6\linewidth}
+We think there might be a particle called ``Higgs'' that would decay into two ``Z bosons,'' each of which decays into two electrons or two muons.
 
-\only<1-4>{\vspace{0.25 cm}}
-\vspace{0.25 cm}
-\end{columns}
-\end{frame}
+\[ H \to ZZ \to e^+e^-\mu^+\mu^- \]
 
-\begin{frame}{From tracks to particles}
-\vspace{0.25 cm}
-Tracks are long-lived particles (on the nanosecond scale) that came from the decay of short-lived particles.
-
-\vspace{-0.5 cm}
 \begin{center}
-\includegraphics[width=0.9\linewidth]{lhcb.png}
+\uncover<6>{\includegraphics[width=0.6\linewidth]{atlas-higgs.png}}
 \end{center}
 
-\vspace{-0.25 cm}
-Associations between them, such as where they intersect, which pairs have the right energy to be common decay products, etc.\ are also valuable information!
+\only<1-3>{\vspace{0.05 cm}}
+\column{0.45\linewidth}
+\vspace{0.1 cm}
+\includegraphics[width=\linewidth]{atlas-detector.jpg}
+
+\vspace{0.15 cm}
+\only<1>{\includegraphics[width=\linewidth]{complex-atlas-collision-science-1.jpg}}
+\only<2>{\includegraphics[width=\linewidth]{complex-atlas-collision-science-2.jpg}}
+\only<3>{\includegraphics[width=\linewidth]{complex-atlas-collision-science-3.jpg}}
+\only<4>{\includegraphics[width=\linewidth]{complex-atlas-collision-science-4.jpg}}
+\only<5->{\includegraphics[width=\linewidth]{complex-atlas-collision-science-5.jpg}}
+\end{columns}}
+
+
 \end{frame}
 
-\begin{frame}{And there are a lot of combinations to consider\ldots}
-\vspace{0.15 cm}
-\begin{columns}
-\column{1.2\linewidth}
-\includegraphics[width=\linewidth]{pileup.png}
-\end{columns}
-\end{frame}
 
 
 

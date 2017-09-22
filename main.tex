@@ -224,7 +224,7 @@ To give a sense of the problem, I'll walk through a sample analysis.
 \end{columns}
 \end{frame}
 
-\begin{frame}{From raw signals to particles}
+\begin{frame}{From raw signals to tracks}
 \vspace{0.15 cm}
 \begin{columns}[b]
 \column{0.515\linewidth}
@@ -233,8 +233,15 @@ To give a sense of the problem, I'll walk through a sample analysis.
 \only<1-4>{\vspace{0.75 cm}}
 
 \column{0.55\linewidth}
+\begin{onlyenv}<1,2,6>
+\mbox{\hspace{-0.5 cm}\begin{minipage}{0.95\linewidth}
 \only<1>{Can you see the particle tracks?}
 \only<2>{How about now?}
+\only<6>{Raw data could have been a (sparsely filled) table, but tracks are an arbitrary-length list of objects.}
+
+\vspace{-1 cm}
+\end{minipage}}
+\end{onlyenv}
 
 \vspace{0.25 cm}
 \only<1>{\includegraphics[width=\linewidth]{tracking-1.png}}
@@ -244,13 +251,31 @@ To give a sense of the problem, I'll walk through a sample analysis.
 \only<5>{\includegraphics[width=\linewidth]{tracking-5.png}}
 \only<6>{\includegraphics[width=\linewidth]{tracking-6.png}}
 
+\only<1-4>{\vspace{0.25 cm}}
 \vspace{0.25 cm}
 \end{columns}
-
-
 \end{frame}
 
+\begin{frame}{From tracks to particles}
+\vspace{0.25 cm}
+Tracks are long-lived particles (on the nanosecond scale) that came from the decay of short-lived particles.
 
+\vspace{-0.5 cm}
+\begin{center}
+\includegraphics[width=0.9\linewidth]{lhcb.png}
+\end{center}
+
+\vspace{-0.25 cm}
+Associations between them, such as where they intersect, which pairs have the right energy to be common decay products, etc.\ are also valuable information!
+\end{frame}
+
+\begin{frame}{And there are a lot of combinations to consider\ldots}
+\vspace{0.15 cm}
+\begin{columns}
+\column{1.2\linewidth}
+\includegraphics[width=\linewidth]{pileup.png}
+\end{columns}
+\end{frame}
 
 
 

@@ -115,8 +115,108 @@
 It's my job to try to find ways to bridge the divide.
 
 \includegraphics[width=\linewidth]{separation.png}
-
 \end{frame}
+
+\begin{frame}{}
+\vspace{1 cm}
+\large
+\begin{center}
+The obstacles are not just {\it accidental}--- artifacts of technology choice \\ (e.g.\ C++ in particle physics and Java in the Hadoop/Spark world).
+
+\vspace{1 cm}
+There are also {\it essential} qualities that current big data systems don't offer.
+
+\vspace{1 cm}
+\uncover<2->{This represents an {\it opportunity} on both sides: alien civilizations that evolved independenly can stand to learn a lot from each other.}
+\end{center}
+\end{frame}
+
+\begin{frame}{So, what is unique about particle physics data?}
+
+\begin{columns}
+\column{1.15\linewidth}
+\vspace{0.11 cm}
+\includegraphics[width=\linewidth]{complex-atlas-collision-art.jpg}
+\end{columns}
+
+\vspace{-8.4 cm}
+\uncover<2->{\textcolor{white}{\Huge\bf It's not the size.}}
+
+\vspace{0.5 cm}
+\uncover<3->{\textcolor{white}{\Huge\bf Arguably, it's the complexity.}}
+
+\vspace{3.3 cm}
+\uncover<4->{\textcolor{white}{\Huge\bf This picture represents one ``row'' in our data ``table.''}}
+
+\vspace{8.4 cm}
+\end{frame}
+
+\begin{frame}{Particle physics data are not stored in databases}
+
+\begin{itemize}\setlength{\itemsep}{0.5 cm}
+\item We don't benefit from indexing, query planning, or high-level query languages.
+\item<2-> Every data pull is a custom C++ program, accessing lists of files, taking months while the user chases down failures and stragglers.
+\item<3-> But if our data {\it were} in a conventional (relational or NoSQL) database, the first thing we'd do is extract it and work with files again.
+\end{itemize}
+\begin{center}
+\huge \uncover<3->{Why?}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\vspace{0.5 cm}
+\begin{columns}[t]
+\column{0.5\linewidth}
+\begin{center}
+\Large Our data are deeply nested \\ and cross-linked
+
+\vspace{-0.25 cm}
+\rule{\linewidth}{0.8 pt}
+\end{center}
+
+\vspace{-0.25 cm}
+\begin{itemize}\setlength{\itemsep}{0.5 cm}
+\item<2-> Not a problem nowadays, as Drill, Parquet, and Arrow can explode nested structures into columns for fast, sparse access.
+
+\vspace{0.2 cm}
+\textcolor{gray}{(We've been doing it since the 90's.)}
+
+\item<3-> Cross-links (pointers) could be supported by a graph database.
+
+\vspace{0.2 cm}
+\textcolor{gray}{(List indexes work well enough for our large number of small graphs.)}
+
+\end{itemize}
+
+\column{0.5\linewidth}
+\begin{center}
+\Large The operations we perform make intensive use of that structure
+
+\vspace{-0.25 cm}
+\rule{\linewidth}{0.8 pt}
+\end{center}
+
+\vspace{-0.25 cm}
+\begin{itemize}
+\item<4-> We frequently need to search sublists under constraints, optimize pairings, iterate over combinatorics\ldots
+
+\item<5-> Even the simplest particle physics search criteria would require explodes, tags, and joins in SQL.
+
+\vspace{0.2 cm}
+\href{https://stackoverflow.com/q/38831961/1623645}{\textcolor{gray}{\scriptsize (https://stackoverflow.com/q/38831961/1623645)}}
+
+\vspace{0.5 cm}
+\begin{uncoverenv}<6->
+To give a sense of the problem, I'll walk through a sample analysis.
+\end{uncoverenv}
+\end{itemize}
+\end{columns}
+\end{frame}
+
+
+
+
+
 
 \begin{frame}{Publish with 5\,154 of your closest friends}
 \vspace{0.5 cm}
@@ -125,6 +225,5 @@ It's my job to try to find ways to bridge the divide.
 \vspace{0.25 cm}
 \includegraphics[width=\linewidth]{authors.pdf}
 \end{frame}
-
 
 \end{document}

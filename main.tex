@@ -440,17 +440,16 @@
 
 %% \vspace{-0.25 cm}
 %% \begin{center}
-%% \vspace{0.5 cm}
 %% \renewcommand{\arraystretch}{1.5}
 %% \small
-%% \begin{tabular}{r l}
+%% \mbox{\hspace{-0.5 cm}\begin{tabular}{r l}
 %% \large 0.018 MHz & \large our current framework \\
 %% \uncover<5->{\large 0.029 MHz & \large deserialize into {\tt\normalsize Track} instances with all 95 track attributes} \\
 %% \uncover<4->{\large 2.8 MHz & \large deserialize into {\tt\normalsize std::vectors} of single-attribute \mbox{{\tt\normalsize Track} instances\hspace{-1 cm}}} \\
-%% \uncover<3->{\large 12 MHz & \large allocate {\tt\normalsize std::vector<double>} on heap for each event; \mbox{then delete\hspace{-1 cm}}} \\
+%% \uncover<3->{\large 12 MHz & \large allocate {\tt\normalsize std::vector<double*>} on heap for each event; \mbox{then delete\hspace{-1 cm}}} \\
 %% \uncover<2->{\large 31 MHz & \large allocate {\tt\normalsize std::vector<double>} on stack for each event} \\
 %% \large 250 MHz & \large minimal loop over flattened {\tt\normalsize trackMomentum} array \\
-%% \end{tabular}
+%% \end{tabular}}
 %% \end{center}
 %% \end{frame}
 
@@ -463,10 +462,10 @@
 
 %% \vspace{0.25 cm}
 %% \begin{enumerate}
-%% \item<2-> These jobs take weeks or months\only<2->{\footnote{one analyst claimed 1.5 years!}}.
+%% \item<2-> These jobs take weeks or months\only<2->{\footnote{one analyst claimed 1.5 years for a single data pull!}}.
 %% \item<3-> The data analyst\only<3->{\footnote{usually the youngest graduate student}} has to manage sets of files and chase down failed jobs.
-%% \item<4-> Repeating the process is so expensive that analysts hedge by requesting events and attributes they're not sure they'll need.
-%% \item<5-> So the process is slower and the downloaded data is larger.
+%% \item<4-> Repeating the process is so expensive that analysis groups hedge their bets by requesting events and attributes they're not sure they'll need.
+%% \item<5-> So the process is slower and the downloaded dataset is bigger.
 %% \item<6-> {\tt\normalsize GOTO \textcolor{darkblue}{\#1}}.
 %% \end{enumerate}
 %% \end{frame}
@@ -477,71 +476,81 @@
 %% \Large \textcolor{darkblue}{So this is really about a change in behavior:}
 
 %% \vspace{0.5 cm}
-%% if we can provide a database-style server, the physicists would \\ have to use it for analysis queries, not bulk downloads.
+%% if we can provide a database-style server, the physicists would \\ have to use it for interactive analysis queries, not bulk downloads.
 
 %% \vspace{0.75 cm}
 %% \large
 %% \begin{minipage}{0.8\linewidth}
 %% \begin{itemize}
 %% \item<2-> The response must be rapid enough for end-user analysis (seconds per plot).
-%% \item<3-> The interface must allow for algorithms on objects.
+%% \item<3-> The interface must allow for algorithms on nested objects.
 %% \end{itemize}
 %% \end{minipage}
 %% \end{center}
 %% \end{frame}
 
-\begin{frame}[fragile]{Key idea: leave the data in columns}
-\vspace{0.5 cm}
-Sure, we {\it store} them as columns (our ROOT format, similar to Parquet), but don't deserialize them into objects.
+%% \begin{frame}[fragile]{Key idea: leave the data in columns}
+%% \vspace{0.5 cm}
+%% Sure, we {\it store} them as columns (our ROOT format, similar to Parquet), but we don't have to spend time deserializing them into objects.
 
-\vspace{0.25 cm}
-Suppose that {\tt\small \textcolor{white}{[}\textcolor{blue}{[}\textcolor{violet}{[}\textcolor{darkorange}{a}, \textcolor{darkorange}{b}, \textcolor{darkorange}{c}, \textcolor{darkorange}{d}\textcolor{violet}{]}, \textcolor{violet}{[]}, \textcolor{violet}{[}\textcolor{darkorange}{e}, \textcolor{darkorange}{f}\textcolor{violet}{]}\textcolor{blue}{]}, \textcolor{blue}{[]}, \textcolor{blue}{[}\textcolor{violet}{[}\textcolor{darkorange}{g}\textcolor{violet}{]}\textcolor{blue}{]}\textcolor{white}{]}} is stored as
+%% \vspace{0.25 cm}
+%% Suppose that {\tt\small \textcolor{white}{[}\textcolor{blue}{[}\textcolor{violet}{[}\textcolor{darkorange}{a}, \textcolor{darkorange}{b}, \textcolor{darkorange}{c}, \textcolor{darkorange}{d}\textcolor{violet}{]}, \textcolor{violet}{[]}, \textcolor{violet}{[}\textcolor{darkorange}{e}, \textcolor{darkorange}{f}\textcolor{violet}{]}\textcolor{blue}{]}, \textcolor{blue}{[]}, \textcolor{blue}{[}\textcolor{violet}{[}\textcolor{darkorange}{g}\textcolor{violet}{]}\textcolor{blue}{]}\ \textcolor{white}{]}} is stored as
 
-\textcolor{white}{Suppose that}
-             {\tt\small \textcolor{blue}{[0,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 3,\ \ 3,\ \ \ 4]}} \textcolor{gray}{(outer list offsets)}
+%% \textcolor{white}{Suppose that}
+%%              {\tt\small \textcolor{blue}{[0,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 3,\ \ 3,\ \ \ 4]}} \textcolor{gray}{(outer list offsets)}
 
-\textcolor{white}{Suppose that}
-             {\tt\small \textcolor{violet}{[\ 0,\ \ \ \ \ \ \ \ \ \ \ \ 4,\ \ 4,\ \ \ \ \ \ \ \ \ \ \ \ 6,\ \ 7]}} \textcolor{gray}{(inner list offsets)}
+%% \textcolor{white}{Suppose that}
+%%              {\tt\small \textcolor{violet}{[\ 0,\ \ \ \ \ \ \ \ \ \ \ \ 4,\ \ 4,\ \ \ \ \ \ \ \ \ \ \ \ 6,\ \ 7]}} \textcolor{gray}{(inner list offsets)}
 
-\textcolor{white}{Suppose that}
-             {\tt\small \textcolor{darkorange}{[\ \ a,\ b,\ c,\ d,\ \ \ \ \ \ \ e,\ f,\ \ \ \ \ \ \ \ \ g\ \ \ ]}} \textcolor{gray}{(attribute data)}
+%% \textcolor{white}{Suppose that}
+%%              {\tt\small \textcolor{darkorange}{[\ \ a,\ b,\ c,\ d,\ \ \ \ \ \ \ e,\ f,\ \ \ \ \ \ \ \ \ g\ \ \ ]}} \textcolor{gray}{(attribute data)}
 
-\vspace{0.5 cm}
-\begin{columns}
-\column{0.325\linewidth}
-\begin{uncoverenv}<2->
-\mbox{\hspace{-0.1 cm}\underline{the user writes}}
+%% \vspace{0.5 cm}
+%% \begin{columns}[t]
+%% \column{0.325\linewidth}
+%% \begin{uncoverenv}<2->
+%% \mbox{\hspace{-0.1 cm}\underline{the user writes}}
 
-\vspace{-0.25 cm}
-\small
-\begin{minted}{python}
-for outer in lists:
-   for inner in outer:
-      for char in inner:
-         print(char)
-\end{minted}
-\end{uncoverenv}
+%% \vspace{-0.25 cm}
+%% \small
+%% \begin{minted}{python}
+%% for outer in lists:
+%%    for inner in outer:
+%%       for char in inner:
+%%          print(char)
+%% \end{minted}
+%% \end{uncoverenv}
 
-\column{0.65\linewidth}
-\begin{uncoverenv}<3->
-\mbox{\hspace{-0.1 cm}\underline{we should execute}}
+%% \column{0.65\linewidth}
+%% \begin{uncoverenv}<3->
+%% \mbox{\hspace{-0.1 cm}\only<3>{\underline{we should execute}}\only<4->{\underline{or even (special case of straight-through loop)}}}
 
-\small
-\vspace{-0.25 cm}
-\begin{minted}{c}
-for (i = 0; i < 3; i++)
-   for (j = outer[i]; j < outer[i+1]; j++)
-      for (k = inner[j]; k < inner[j+1]; k++)
-         print(data[k]);
-\end{minted}
-\end{uncoverenv}
-\end{columns}
+%% \small
+%% \vspace{-0.25 cm}
+%% \begin{onlyenv}<3>
+%% \begin{minted}{c}
+%% for (i = 0; i < 3; i++)
+%%    for (j = outer[i]; j < outer[i+1]; j++)
+%%       for (k = inner[j]; k < inner[j+1]; k++)
+%%          print(data[k]);
+%% \end{minted}
+%% \end{onlyenv}
+%% \begin{onlyenv}<4->
+%% \begin{minted}{c}
+%% for (k = 0; k < inner[outer[3]]; k++)
+%%    print(data[k]);
+%% \end{minted}
+%% \end{onlyenv}
+%% \end{uncoverenv}
+%% \end{columns}
 
-\vspace{0.5 cm}
-\uncover<4->{\textcolor{darkblue}{The data representation is just Arrow; the code transformation can be automated.}}
+%% \vspace{0.5 cm}
+%% \uncover<5->{\textcolor{darkblue}{The data representation is just Arrow; the code transformation can be automated.}}
+%% \end{frame}
+
+\begin{frame}{}
+
 \end{frame}
-
-
 
 
 \end{document}

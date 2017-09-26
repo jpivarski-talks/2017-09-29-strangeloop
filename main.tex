@@ -110,7 +110,7 @@
 \uncover<2->{\mbox{ } \hfill \includegraphics[width=0.7\linewidth]{aws-snowmobile.jpg}\hspace{-1 cm}}
 \end{frame}
 
-\begin{frame}{Though it will be getting bigger}
+\begin{frame}{It will be getting bigger\ldots}
 \begin{center}
 \only<1>{\includegraphics[width=0.7\linewidth]{the-coming-flood.png}}
 \only<2>{\includegraphics[width=0.7\linewidth]{the-coming-flood-2.png}}
@@ -139,7 +139,7 @@ The obstacles are not just {\it accidental}--- artifacts of technology choice \\
 There are also {\it essential} qualities that current big data systems don't offer.
 
 \vspace{1 cm}
-\uncover<2->{\textcolor{darkblue}{This represents an {\it opportunity} on both sides: alien civilizations that evolved independenly can learn a lot from each other!}}
+\uncover<2->{\textcolor{darkblue}{This represents an opportunity on both sides: alien civilizations that evolved independenly can learn a lot from each other!}}
 \end{center}
 \end{frame}
 
@@ -269,7 +269,7 @@ Tracks are long-lived particles (on the nanosecond scale) that came from the dec
 \end{center}
 
 \vspace{-0.25 cm}
-Tracks have structured associations with one another, and those associations are not certain: they have to be carried through to the final analysis.
+Tracks have structured associations with one another, and those associations are not certain: flexibility has to be carried through to the final analysis.
 \end{frame}
 
 \begin{frame}{And there are a lot of combinations to consider\ldots}
@@ -372,7 +372,7 @@ CREATE TABLE events (
 
 \begin{frame}[fragile]{Femtocode}
 \vspace{0.35 cm}
-This problem can be alleviated by adding functions as first-class objects to SQL.
+We can get the best of both worlds by adding first-class objects to SQL.
 
 \vspace{0.2 cm}
 Last year, I started developing Femtocode: a declarative, functional query language with an object-oriented syntax.
@@ -399,32 +399,34 @@ dataset.histogram(90, 80, 170, flatten({event =>
 \end{uncoverenv}
 \end{frame}
 
-\begin{frame}{}
+\begin{frame}{Why the language is great and I won't be talking about it}
 \vspace{1 cm}
 \large
 \begin{columns}[t]
 \column{0.32\linewidth}
-By shrink-wrapping the language around our problem, we could add some nice features:
+\uncover<2->{By shrink-wrapping the language around our problem, we could add some nice features:}
+\begin{uncoverenv}<2->
 \begin{itemize}
 \item automatically vectorize calculations across objects
 \item 100\% compile-time error checking with dependent types
 \end{itemize}
+\end{uncoverenv}
 
 \column{0.31\linewidth}
-\uncover<2->{Since last year, other projects started adding functional programming to query languages:}
-\begin{uncoverenv}<2->
+\uncover<3->{In the past year, other projects started adding functional programming to query languages:}
+\begin{uncoverenv}<3->
 \begin{itemize}
 \item SparkSQL 3.0's {\tt\small TRANSFORM} keyword
 \item DataFun: Michael Arntzenius's talk in US Regency AB!
 \end{itemize}
 \end{uncoverenv}
 
-\column{0.35\linewidth}
-\uncover<3->{At the same time, we discovered that Femtocode's internal data representation \mbox{\textcolor{darkblue}{is orders of magnitude faster}} to scan than our current methods.}
+\column{0.33\linewidth}
+\uncover<4->{Meanwhile, we discovered that Femtocode's internal data representation is \mbox{\textcolor{darkblue}{orders of magnitude faster}} to scan than our current methods.}
 
 \vspace{0.5 cm}
-\uncover<4->{\fbox{\begin{minipage}{\linewidth}
-We can apply the new data representation without introducing a new language.
+\uncover<5->{\fbox{\begin{minipage}{\linewidth}
+We can apply the new data representation on its own, \mbox{without} \mbox{introducing} a new \mbox{language.}
 \end{minipage}}}
 \end{columns}
 \end{frame}

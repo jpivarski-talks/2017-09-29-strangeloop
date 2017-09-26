@@ -269,7 +269,7 @@ Tracks are long-lived particles (on the nanosecond scale) that came from the dec
 \end{center}
 
 \vspace{-0.25 cm}
-Associations between them, such as where they intersect, which pairs have the right energy to be common decay products, and so on are also valuable information!
+Tracks have structured associations with one another, and those associations are not certain: they have to be carried through to the final analysis.
 \end{frame}
 
 \begin{frame}{And there are a lot of combinations to consider\ldots}
@@ -286,11 +286,15 @@ Associations between them, such as where they intersect, which pairs have the ri
 \column{0.6\linewidth}
 Suppose there's a particle called ``Higgs'' that would decay into two ``Z bosons,'' each of which decays into two electrons or two muons.
 
-\[ H \to ZZ \to e^+e^-\mu^+\mu^- \]
+\only<1-5>{\[ H \to ZZ \to \vphantom{\mu^+}e^+e^-\mu^+\mu^- \]}
+\only<6>{\[ H \to ZZ \to \underbrace{\vphantom{\mu^+}e^+e^-}\mu^+\mu^- \]}
+\only<7>{\[ H \to ZZ \to \underbrace{\vphantom{\mu^+}e^+e^-}\underbrace{\mu^+\mu^-} \]}
+\only<8->{\[ H \to ZZ \to \underbrace{\hspace{0.33 cm}\underbrace{\vphantom{\mu^+}e^+e^-}\hspace{0.33 cm}\underbrace{\mu^+\mu^-}\hspace{0.33 cm}}_{\mbox{\scriptsize compute mass of progenitor}} \]}
 
 \begin{center}
-\only<1-5>{\vspace{2 cm}}
-\only<6>{\includegraphics[width=0.55\linewidth]{atlas-higgs.png}}
+\only<1-8>{\vspace{2 cm}}
+\only<9>{\vspace{-0.25 cm}}
+\only<9>{\includegraphics[width=0.55\linewidth]{atlas-higgs.png}}
 \end{center}
 
 \only<1-3>{\vspace{0.05 cm}}
@@ -307,7 +311,7 @@ Suppose there's a particle called ``Higgs'' that would decay into two ``Z bosons
 \end{columns}}
 \end{frame}
 
-\begin{frame}{Data analysts would rather work with objects than tables}
+\begin{frame}{Objects versus flat tables}
 \vspace{0.5 cm}
 \begin{columns}[b]
 \column{0.5\linewidth}
@@ -319,10 +323,10 @@ Suppose there's a particle called ``Higgs'' that would decay into two ``Z bosons
 \end{columns}
 
 \vspace{0.2 cm}
-To connect calorimeter energy measurements to tracks to identify electrons; to connect outer detector hits to tracks to identify muons; to check for other particles that might cause a mismatch from overlapping hits\ldots
+To try different associations between particles, between data from different detectors, in many different combinations\ldots
 
 \vspace{0.2 cm}
-\textcolor{darkblue}{All of these are most easily expressed as algorithms over objects.}
+\hfill \textcolor{darkblue}{\ldots it's easier to write these as algorithms over {\it objects.}}
 \end{frame}
 
 \begin{frame}[fragile]{Modern SQL can {\it represent} that}
@@ -373,6 +377,7 @@ This problem can be alleviated by adding functions as first-class objects to SQL
 \vspace{0.2 cm}
 Last year, I started developing Femtocode: a declarative, functional query language with an object-oriented syntax.
 
+\begin{uncoverenv}<2->
 \begin{center}
 \small
 \begin{lstlisting}[language=femtocode]
@@ -391,6 +396,7 @@ dataset.histogram(90, 80, 170, flatten({event =>
 }))
 \end{lstlisting}
 \end{center}
+\end{uncoverenv}
 \end{frame}
 
 \begin{frame}{}
@@ -414,7 +420,7 @@ By shrink-wrapping the language around our problem, we could add some nice featu
 \end{uncoverenv}
 
 \column{0.35\linewidth}
-\uncover<3->{At the same time, we discovered that Femtocode's internal data representation is orders of magnitude faster than our current methods.}
+\uncover<3->{At the same time, we discovered that Femtocode's internal data representation \mbox{\textcolor{darkblue}{is orders of magnitude faster}} to scan than our current methods.}
 
 \vspace{0.5 cm}
 \uncover<4->{\fbox{\begin{minipage}{\linewidth}
@@ -423,16 +429,12 @@ We can apply the new data representation without introducing a new language.
 \end{columns}
 \end{frame}
 
-\begin{frame}[fragile]{Single-threaded iteration over one attribute in many objects}
+\begin{frame}[fragile]{Iteration over single attribute in many objects}
 \vspace{0.25 cm}
 \begin{center}
 \begin{minipage}{0.85\linewidth}
 \small
-%% \begin{lstlisting}[language=femtocode]
-%% dataset.histogram(90, 80, 170, flatten({event =>
-%%     event.tracks.map(t => t.trackMomentum)
-%% }))
-%% \end{lstlisting}
+{\bf Such as (single-threaded):}
 \begin{verbatim}
 for (i = 0;  i < numEvents;  i++)
     for (j = 0;  j < events[i].numTracks;  j++)
@@ -471,7 +473,7 @@ It's usually used to extract a subset of events and attributes for the physicist
 \begin{enumerate}
 \item<2-> These jobs take weeks or months\only<2->{\footnote{one analyst claimed 1.5 years for a single data pull!}}.
 \item<3-> The data analyst\only<3->{\footnote{usually the youngest graduate student}} has to manage sets of files and chase down failed jobs.
-\item<4-> Repeating the process is so expensive that analysis groups hedge their bets by requesting events and attributes they're not sure they'll need.
+\item<4-> Repeating the process is so time-consuming that analysis groups hedge their bets by requesting events and attributes they're not sure they'll need.
 \item<5-> So the process is slower and the downloaded dataset is bigger.
 \item<6-> {\tt\normalsize GOTO \textcolor{darkblue}{\#1}}.
 \end{enumerate}
@@ -483,7 +485,7 @@ It's usually used to extract a subset of events and attributes for the physicist
 \Large \textcolor{darkblue}{So this is really about a change in behavior:}
 
 \vspace{0.5 cm}
-if we can provide a database-style server, the physicists would \\ have to use it for interactive analysis queries, not bulk downloads.
+If we provide a database-style server, the physicists would \\ have to use it for interactive analysis queries, not bulk downloads!
 
 \vspace{0.75 cm}
 \large
@@ -496,13 +498,21 @@ if we can provide a database-style server, the physicists would \\ have to use i
 \end{center}
 \end{frame}
 
-\begin{frame}[fragile]{Key idea: leave the data in columns}
+\begin{frame}{}
+\huge
+\begin{center}
+\textcolor{darkblue}{Key idea: \underline{leave} the data in columns!}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Leave the data in columns!}
 \vspace{0.5 cm}
-Sure, we {\it store} them as columns (our ROOT format, similar to Parquet), but we also don't have to spend time deserializing them into objects.
+Sure, we {\it store} them as columns (our ROOT format, similar to Parquet), but we also shouldn't spend time materializing them as objects.
 
 \vspace{0.25 cm}
-Suppose that {\tt\small \textcolor{white}{[}\textcolor{blue}{[}\textcolor{violet}{[}\textcolor{darkorange}{a}, \textcolor{darkorange}{b}, \textcolor{darkorange}{c}, \textcolor{darkorange}{d}\textcolor{violet}{]}, \textcolor{violet}{[]}, \textcolor{violet}{[}\textcolor{darkorange}{e}, \textcolor{darkorange}{f}\textcolor{violet}{]}\textcolor{blue}{]}, \textcolor{blue}{[]}, \textcolor{blue}{[}\textcolor{violet}{[}\textcolor{darkorange}{g}\textcolor{violet}{]}\textcolor{blue}{]}\ \textcolor{white}{]}} is stored as
+Suppose that {\tt\small \textcolor{white}{[}\textcolor{blue}{[}\textcolor{violet}{[}\textcolor{darkorange}{a}, \textcolor{darkorange}{b}, \textcolor{darkorange}{c}, \textcolor{darkorange}{d}\textcolor{violet}{]}, \textcolor{violet}{[]}, \textcolor{violet}{[}\textcolor{darkorange}{e}, \textcolor{darkorange}{f}\textcolor{violet}{]}\textcolor{blue}{]}, \textcolor{blue}{[]}, \textcolor{blue}{[}\textcolor{violet}{[}\textcolor{darkorange}{g}\textcolor{violet}{]}\textcolor{blue}{]}\ \textcolor{white}{]}} \uncover<2->{is stored as}
 
+\begin{uncoverenv}<2->
 \textcolor{white}{Suppose that}
              {\tt\small \textcolor{blue}{[0,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 3,\ \ 3,\ \ \ 4]}} \textcolor{gray}{(outer list offsets)}
 
@@ -511,11 +521,12 @@ Suppose that {\tt\small \textcolor{white}{[}\textcolor{blue}{[}\textcolor{violet
 
 \textcolor{white}{Suppose that}
              {\tt\small \textcolor{darkorange}{[\ \ a,\ b,\ c,\ d,\ \ \ \ \ \ \ e,\ f,\ \ \ \ \ \ \ \ \ g\ \ \ ]}} \textcolor{gray}{(attribute data)}
+\end{uncoverenv}
 
 \vspace{0.5 cm}
 \begin{columns}[t]
 \column{0.325\linewidth}
-\begin{uncoverenv}<2->
+\begin{uncoverenv}<3->
 \mbox{\hspace{-0.1 cm}\underline{the user writes}}
 
 \vspace{-0.25 cm}
@@ -529,12 +540,12 @@ for outer in lists:
 \end{uncoverenv}
 
 \column{0.65\linewidth}
-\begin{uncoverenv}<3->
-\mbox{\hspace{-0.1 cm}\only<3>{\underline{we should execute}}\only<4->{\underline{or even (special case of exhaustive nested loops)}}}
+\begin{uncoverenv}<4->
+\mbox{\hspace{-0.1 cm}\only<4>{\underline{we should execute}}\only<5->{\underline{or even (special case of exhaustive nested loops)}}}
 
 \small
 \vspace{-0.25 cm}
-\begin{onlyenv}<3>
+\begin{onlyenv}<4>
 \begin{minted}{c}
 for (i = 0; i < 3; i++)
    for (j = outer[i]; j < outer[i+1]; j++)
@@ -542,7 +553,7 @@ for (i = 0; i < 3; i++)
          print(data[k]);
 \end{minted}
 \end{onlyenv}
-\begin{onlyenv}<4->
+\begin{onlyenv}<5->
 \begin{minted}{c}
 for (k = 0; k < inner[outer[3]]; k++)
    print(data[k]);
@@ -552,7 +563,7 @@ for (k = 0; k < inner[outer[3]]; k++)
 \end{columns}
 
 \vspace{0.5 cm}
-\uncover<5->{\textcolor{darkblue}{The data representation is just Arrow; the code transformation can be automated.}}
+\uncover<6->{\textcolor{darkblue}{The data representation is just Arrow; the code transformation can be automated.}}
 \end{frame}
 
 \begin{frame}{}

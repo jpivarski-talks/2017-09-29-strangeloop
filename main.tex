@@ -7,7 +7,7 @@
   \usefonttheme{default}
   \setbeamertemplate{navigation symbols}{}
   \setbeamertemplate{caption}[numbered]
-  \setbeamertemplate{footline}[page number]
+  \setbeamertemplate{footline}[frame number]
   \setbeamercolor{frametitle}{fg=white}
   \setbeamercolor{footline}{fg=black}
 } 
@@ -603,12 +603,58 @@
 %% \end{columns}
 %% \end{frame}
 
-\begin{frame}{Concentrate on }
+%% \begin{frame}{Concentrate on a few basic type generators}
+%% \vspace{0.5 cm}
+%% \large
 
+%% \renewcommand{\arraystretch}{2}
+%% \begin{tabular}{l p{0.8\linewidth}}
+%% \textcolor{darkblue}{{\Huge P}{\LARGE rimitives:}} & fixed-width numbers, booleans, characters. \\
+%% \textcolor{darkblue}{{\Huge L}{\LARGE ists:}} & arbitrary-length lists of another type. \\
+%% \textcolor{darkblue}{{\Huge U}{\LARGE nions:}} & set of possible types; runtime object is exactly one possibility. \\
+%% \textcolor{darkblue}{{\Huge R}{\LARGE ecords:}} & package of several named, typed fields; runtime object has all nested subfields.
+%% \end{tabular}
 
+%% \normalsize
+%% \vspace{0.2 cm}
+%% \uncover<2->{Other common types (such as strings) can be constructed from these (arbitrary-length list of characters, for instance).}
 
+%% \vspace{0.2 cm}
+%% \uncover<3->{It's easier to implement code transformation (AST node rewriting) with as few complications as possible.}
 
+%% \vspace{0.2 cm}
+%% \uncover<4->{\mbox{ } \hfill \textcolor{blue}{\url{https://github.com/diana-hep/plur}} \hfill \mbox{ }}
+%% \end{frame}
 
+\begin{frame}{Relationship to Apache Arrow}
+\large
+
+\begin{columns}
+\column{0.9\linewidth}
+\begin{center}
+The way that \textcolor{darkblue}{Primitives, Lists, (sparse) Unions, and Records} are represented are a subset of the Apache Arrow specification, so that one can run fast Python on Arrow dataframes.
+
+\vspace{0.75 cm}
+\uncover<2->{One important difference: PLUR does not require columns to be laid out in a contiguous block. They may be memory mapped files, generated on demand, streaming from the network, etc.}
+\end{center}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Last thought: columnar data management}
+\vspace{0.5 cm}
+What if the unit of granularity was a column, rather than a file (set of events)?
+\begin{itemize}
+\item Even Parquet and Arrow bind sets of columns together and call them dataframes.
+\end{itemize}
+
+\begin{uncoverenv}<2->
+\begin{center}
+\only<1-2>{\includegraphics[width=0.8\linewidth]{augmentation-example-1.pdf}}
+\only<3>{\includegraphics[width=0.8\linewidth]{augmentation-example-2.pdf}}
+\only<4>{\includegraphics[width=0.8\linewidth]{augmentation-example-3.pdf}}
+\only<5>{\includegraphics[width=0.8\linewidth]{augmentation-example-4.pdf}}
+\end{center}
+\end{uncoverenv}
 \end{frame}
 
 

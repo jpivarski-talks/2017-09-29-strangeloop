@@ -366,16 +366,16 @@ CREATE TABLE events (
 \end{uncoverenv}
 
 \vspace{0.25 cm}
-\uncover<3->{\textcolor{darkblue}{This is in no way easier than writing a nested for loop.}}
+\uncover<3->{\textcolor{darkblue}{\hspace{-0.5 cm}This is \underline{in no way} easier than writing a nested for loop!}}
 \end{columns}
 \end{frame}
 
 \begin{frame}[fragile]{Femtocode}
 \vspace{0.35 cm}
-We can get the best of both worlds by adding first-class objects to SQL.
+\textcolor{darkblue}{We can get the best of both worlds by adding first-class functions to SQL.}
 
 \vspace{0.2 cm}
-Last year, I started developing Femtocode: a declarative, functional query language with an object-oriented syntax.
+Last year, I started developing Femtocode: a declarative query language with a functional, object-oriented syntax.
 
 \begin{uncoverenv}<2->
 \begin{center}
@@ -400,7 +400,7 @@ dataset.histogram(90, 80, 170, flatten({event =>
 \end{frame}
 
 \begin{frame}{Why the language is great and I won't be talking about it}
-\vspace{1 cm}
+\vspace{0.5 cm}
 \large
 \begin{columns}[t]
 \column{0.32\linewidth}
@@ -447,7 +447,7 @@ for (i = 0;  i < numEvents;  i++)
 
 \mbox{ } \hfill \textcolor{darkblue}{Four orders of magnitude between how we currently access data} \hfill \mbox{ }
 
-\mbox{ } \hfill \textcolor{darkblue}{and how we could access data!} \hfill \mbox{ }
+\mbox{ } \hfill \textcolor{darkblue}{and how we \underline{could} access data!} \hfill \mbox{ }
 
 \vspace{-0.25 cm}
 \begin{center}
@@ -475,7 +475,7 @@ It's usually used to extract a subset of events and attributes for the physicist
 \begin{enumerate}
 \item<2-> These jobs take weeks or months\only<2->{\footnote{one analyst claimed 1.5 years for a single data pull!}}.
 \item<3-> The data analyst\only<3->{\footnote{usually the youngest graduate student}} has to manage sets of files and chase down failed jobs.
-\item<4-> Repeating the process is so time-consuming that analysis groups hedge their bets by requesting events and attributes they're not sure they'll need.
+\item<4-> Repeating the process is so time-consuming that analysis groups hedge their bets by requesting more data than they're sure they'll need.
 \item<5-> So the process is slower and the downloaded dataset is bigger.
 \item<6-> {\tt\normalsize GOTO \textcolor{darkblue}{\#1}}.
 \end{enumerate}
@@ -483,21 +483,38 @@ It's usually used to extract a subset of events and attributes for the physicist
 
 \begin{frame}{}
 \vspace{0.5 cm}
+\Large
 \begin{center}
-\Large \textcolor{darkblue}{So this is really about a change in behavior:}
+\textcolor{darkblue}{So this is really about a change in behavior:}
+\end{center}
 
-\vspace{0.5 cm}
-If we provide a database-style server, the physicists would \\ have to use it for interactive analysis queries, not bulk downloads!
+\vspace{-0.25 cm}
+\begin{columns}
+\column{0.4\linewidth}
+\begin{center}
+{\normalsize (1)}
+
+big download, work locally
+\end{center}
+
+\column{0.6\linewidth}
+\begin{center}
+{\normalsize (2)}
+
+small operations on a shared resource
+\end{center}
+\end{columns}
 
 \vspace{0.75 cm}
-\large
+\uncover<2->{For the new database-style to work,}
+
+\vspace{0.25 cm}
 \begin{minipage}{0.8\linewidth}
-\begin{itemize}
-\item<2-> The response must be rapid enough for end-user analysis (seconds per plot).
-\item<3-> The interface must allow for algorithms on nested objects.
+\begin{itemize}\setlength{\itemsep}{0.25 cm}
+\item<3-> \Large responses must be rapid enough for end-user analysis (seconds per plot)
+\item<4-> \Large the interface must allow for algorithms on nested objects.
 \end{itemize}
 \end{minipage}
-\end{center}
 \end{frame}
 
 \begin{frame}{}

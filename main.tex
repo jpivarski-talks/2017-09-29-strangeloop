@@ -524,10 +524,10 @@ small operations on a shared resource
 
 \begin{frame}[fragile]{Leave the data in columns!}
 \vspace{0.5 cm}
-Sure, we {\it store} them as columns (our ROOT format, similar to Parquet), but we also {\it shouldn't spend time materializing them} as objects.
+We've always {\it stored} the data as exploded columns (similar to Apache Parquet), but we also shouldn't spend time materializing them as objects.
 
 \vspace{0.25 cm}
-Suppose that {\tt\small \textcolor{white}{[}\textcolor{blue}{[}\textcolor{violet}{[}\textcolor{darkorange}{a}, \textcolor{darkorange}{b}, \textcolor{darkorange}{c}, \textcolor{darkorange}{d}\textcolor{violet}{]}, \textcolor{violet}{[]}, \textcolor{violet}{[}\textcolor{darkorange}{e}, \textcolor{darkorange}{f}\textcolor{violet}{]}\textcolor{blue}{]}, \textcolor{blue}{[]}, \textcolor{blue}{[}\textcolor{violet}{[}\textcolor{darkorange}{g}\textcolor{violet}{]}\textcolor{blue}{]}\ \textcolor{white}{]}} \uncover<2->{is stored as}
+Suppose that {\tt\small \textcolor{white}{[}\textcolor{blue}{[}\textcolor{violet}{[}\textcolor{darkorange}{a}, \textcolor{darkorange}{b}, \textcolor{darkorange}{c}, \textcolor{darkorange}{d}\textcolor{violet}{]}, \textcolor{violet}{[]}, \textcolor{violet}{[}\textcolor{darkorange}{e}, \textcolor{darkorange}{f}\textcolor{violet}{]}\textcolor{blue}{]}, \textcolor{blue}{[]}, \textcolor{blue}{[}\textcolor{violet}{[}\textcolor{darkorange}{g}\textcolor{violet}{]}\textcolor{blue}{]}\ \textcolor{white}{]}} is stored as
 
 \begin{uncoverenv}<2->
 \textcolor{white}{Suppose that}
@@ -544,7 +544,7 @@ Suppose that {\tt\small \textcolor{white}{[}\textcolor{blue}{[}\textcolor{violet
 \begin{columns}[t]
 \column{0.325\linewidth}
 \begin{uncoverenv}<3->
-\mbox{\hspace{-0.1 cm}\underline{the user writes}}
+\mbox{\hspace{-0.1 cm}\underline{when the user writes}}
 
 \vspace{-0.25 cm}
 \small
@@ -558,11 +558,11 @@ for outer in lists:
 
 \column{0.65\linewidth}
 \begin{uncoverenv}<4->
-\mbox{\hspace{-0.1 cm}\only<4>{\underline{we should execute}}\only<5->{\underline{or even (special case of exhaustive nested loops)}}}
+\mbox{\hspace{-0.1 cm}\only<4>{\underline{we shouldn't create lists and sublists\ldots}}\only<5>{\underline{we should instead execute}}\only<6->{\underline{or even (special case of exhaustive nested loops)}}}
 
 \small
 \vspace{-0.25 cm}
-\begin{onlyenv}<4>
+\begin{onlyenv}<5>
 \begin{minted}{c}
 for (i = 0; i < 3; i++)
    for (j = outer[i]; j < outer[i+1]; j++)
@@ -570,7 +570,7 @@ for (i = 0; i < 3; i++)
          print(data[k]);
 \end{minted}
 \end{onlyenv}
-\begin{onlyenv}<5->
+\begin{onlyenv}<6->
 \begin{minted}{c}
 for (k = 0; k < inner[outer[3]]; k++)
    print(data[k]);
@@ -580,7 +580,7 @@ for (k = 0; k < inner[outer[3]]; k++)
 \end{columns}
 
 \vspace{0.5 cm}
-\uncover<6->{\textcolor{darkblue}{The data representation is just Arrow; the code transformation can be automated.}}
+\uncover<7->{\textcolor{darkblue}{The data representation is Apache Arrow; the code transformation can be automated.}}
 \end{frame}
 
 \begin{frame}[fragile]{Measurements in a real system}
@@ -588,12 +588,13 @@ for (k = 0; k < inner[outer[3]]; k++)
 I'm using Python as a stepping-stone toward Femtocode. By transforming Python object references, we can turn it into nothing but arrays and number-crunching.
 
 \vspace{0.2 cm}
-Numba, a Python-to-LLVM compiler, is particularly good at optimizing this.
+\uncover<2->{Numba, a Python-to-LLVM compiler, is particularly good at optimizing this.}
 
 \begin{columns}[c]
 \column{0.05\linewidth}
 \column{0.5\linewidth}
 \scriptsize
+\begin{uncoverenv}<3->
 \begin{minted}{python}
 # objects in Python code
 def dimuon(event):
@@ -610,9 +611,10 @@ def dimuon(event):
 # translated to array references
 plur.compile.run(arrays, dimuon)
 \end{minted}
+\end{uncoverenv}
 
 \column{0.45\linewidth}
-\includegraphics[width=\linewidth]{plur-vs-cpp.png}
+\uncover<4->{\includegraphics[width=\linewidth]{plur-vs-cpp.png}}
 
 \column{0.05\linewidth}
 \end{columns}

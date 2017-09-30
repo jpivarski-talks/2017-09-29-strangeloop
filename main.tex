@@ -139,7 +139,7 @@ The obstacles are not just {\it accidental}--- artifacts of technology choice \\
 There are also {\it essential} qualities that current big data systems don't offer.
 
 \vspace{1 cm}
-\uncover<2->{\textcolor{darkblue}{This represents an opportunity on both sides: alien civilizations that evolved independenly can learn a lot from each other!}}
+\uncover<2->{\textcolor{darkblue}{This represents an opportunity on both sides: alien civilizations that evolved on different planets can learn a lot from each other!}}
 \end{center}
 \end{frame}
 
@@ -155,7 +155,7 @@ There are also {\it essential} qualities that current big data systems don't off
 \uncover<2->{\textcolor{white}{\huge\bf It's not the size (100's of PB).}}
 
 \vspace{0.5 cm}
-\uncover<3->{\textcolor{white}{\huge\bf Arguably, it's the \underline{complexity}.}}
+\uncover<3->{\textcolor{white}{\huge\bf Arguably, it's the \underline{object complexity}.}}
 
 \vspace{3.9 cm}
 \uncover<4->{\textcolor{white}{\huge\bf This picture represents one ``row'' in our data ``table.''}}
@@ -163,18 +163,18 @@ There are also {\it essential} qualities that current big data systems don't off
 \vspace{8.7 cm}
 \end{frame}
 
-\begin{frame}{``Row'' and ``table'' in quotation marks\ldots}
+\begin{frame}{Why are ``row'' and ``table'' in quotation marks?}
 \vspace{0.75 cm}
-\textcolor{darkblue}{\LARGE Particle physics data are not stored in databases.}
+\uncover<2->{\textcolor{darkblue}{\LARGE Particle physics data are not stored in databases.}}
 
 \vspace{0.5 cm}
 \begin{itemize}\setlength{\itemsep}{0.5 cm}
-\item<2-> We don't benefit from indexing, query planning, or high-level query languages.
-\item<3-> Every data pull is a custom C++ program, accessing lists of files, taking months while the user chases down failures and stragglers.
-\item<4-> But if our data {\it were} in a conventional (relational or NoSQL) database, the first thing we'd do is extract it and work with files again.
+\item<3-> We don't benefit from indexing, query planning, or high-level query languages.
+\item<4-> Every data pull is a custom C++ program, accessing lists of files, taking months while the user chases down failures and stragglers.
+\item<5-> But if our data {\it were} in a conventional (relational or NoSQL) database, the first thing we'd do is extract it and work with files again.
 \end{itemize}
 \begin{center}
-\huge \uncover<5->{Why?}
+\huge \uncover<6->{Why?}
 \end{center}
 \end{frame}
 
@@ -205,20 +205,20 @@ There are also {\it essential} qualities that current big data systems don't off
 
 \column{0.5\linewidth}
 \begin{center}
-\Large The operations we perform make intensive use of that structure
+\uncover<4->{\Large The operations we perform make intensive use of that structure}
 
 \vspace{-0.25 cm}
-\rule{\linewidth}{0.8 pt}
+\uncover<4->{\rule{\linewidth}{0.8 pt}}
 \end{center}
 
 \vspace{-0.25 cm}
 \begin{itemize}
-\item<4-> We frequently need to search sublists under constraints, optimize pairings, iterate over combinatorics\ldots
+\item<5-> We frequently need to search sublists under constraints, optimize pairings, iterate over combinatorics\ldots
 
-\item<5-> Even the simplest particle physics search criteria would require explodes, tags, and joins in SQL.
+\item<6-> Even the simplest particle physics search criteria would require explodes, tags, and joins in SQL.
 
 \vspace{0.5 cm}
-\begin{uncoverenv}<6->
+\begin{uncoverenv}<7->
 \fbox{\begin{minipage}{\linewidth}
 To give a sense of the problem, I'll walk through the steps of an analysis.
 \end{minipage}}
@@ -269,7 +269,7 @@ Tracks are long-lived particles (on the nanosecond scale) that came from the dec
 \end{center}
 
 \vspace{-0.25 cm}
-Tracks have structured associations with one another, and those associations are not certain: flexibility has to be carried through to the final analysis.
+\uncover<2->{Tracks have structured associations with one another, and those associations are not certain: flexibility has to be carried through to the final analysis.}
 \end{frame}
 
 \begin{frame}{And there are a lot of combinations to consider\ldots}
@@ -326,7 +326,7 @@ Suppose there's a particle called ``Higgs'' that would decay into two ``Z bosons
 To try different associations between particles, between data from different detectors, in many different combinations\ldots
 
 \vspace{0.2 cm}
-\hfill \textcolor{darkblue}{\ldots it's easier to write these as algorithms over {\it objects.}}
+\hfill \textcolor{darkblue}{\ldots it's easier to write these as {\it algorithms over objects!}}
 \end{frame}
 
 \begin{frame}[fragile]{Modern SQL can {\it represent} that}

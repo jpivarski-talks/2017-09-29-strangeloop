@@ -482,37 +482,35 @@ It's usually used to extract a subset of events and attributes for the physicist
 \end{frame}
 
 \begin{frame}{}
-\vspace{0.5 cm}
+\vspace{1 cm}
 \Large
-\begin{center}
 \textcolor{darkblue}{So this is really about a change in behavior:}
-\end{center}
 
-\vspace{-0.25 cm}
+\vspace{-0.35 cm}
 \begin{columns}
 \column{0.4\linewidth}
 \begin{center}
-{\normalsize (1)}
+\textcolor{darkblue}{\normalsize (1)}
 
 big download, work locally
 \end{center}
 
 \column{0.6\linewidth}
 \begin{center}
-{\normalsize (2)}
+\textcolor{darkblue}{\normalsize (2)}
 
 small operations on a shared resource
 \end{center}
 \end{columns}
 
 \vspace{0.75 cm}
-\uncover<2->{For the new database-style to work,}
+\uncover<2->{\textcolor{darkblue}{For the new style of analysis workflow to compete,}}
 
-\vspace{0.25 cm}
+\vspace{0.5 cm}
 \begin{minipage}{0.8\linewidth}
 \begin{itemize}\setlength{\itemsep}{0.25 cm}
-\item<3-> \Large responses must be rapid enough for end-user analysis (seconds per plot)
-\item<4-> \Large the interface must allow for algorithms on nested objects.
+\item<3-> \Large responses must be rapid enough for \mbox{end-user analysis\hspace{-0.5 cm}} (seconds per plot)
+\item<4-> \mbox{\Large the interface must allow for algorithms on nested objects.\hspace{-3 cm}}
 \end{itemize}
 \end{minipage}
 \end{frame}
@@ -526,7 +524,7 @@ small operations on a shared resource
 
 \begin{frame}[fragile]{Leave the data in columns!}
 \vspace{0.5 cm}
-Sure, we {\it store} them as columns (our ROOT format, similar to Parquet), but we also shouldn't spend time materializing them as objects.
+Sure, we {\it store} them as columns (our ROOT format, similar to Parquet), but we also {\it shouldn't spend time materializing them} as objects.
 
 \vspace{0.25 cm}
 Suppose that {\tt\small \textcolor{white}{[}\textcolor{blue}{[}\textcolor{violet}{[}\textcolor{darkorange}{a}, \textcolor{darkorange}{b}, \textcolor{darkorange}{c}, \textcolor{darkorange}{d}\textcolor{violet}{]}, \textcolor{violet}{[]}, \textcolor{violet}{[}\textcolor{darkorange}{e}, \textcolor{darkorange}{f}\textcolor{violet}{]}\textcolor{blue}{]}, \textcolor{blue}{[]}, \textcolor{blue}{[}\textcolor{violet}{[}\textcolor{darkorange}{g}\textcolor{violet}{]}\textcolor{blue}{]}\ \textcolor{white}{]}} \uncover<2->{is stored as}

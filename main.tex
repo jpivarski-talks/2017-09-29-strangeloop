@@ -620,10 +620,14 @@ plur.compile.run(arrays, dimuon)
 \end{columns}
 \end{frame}
 
-\begin{frame}{Concentrate on a few basic type generators}
+\begin{frame}{General code transformation for all types is hard}
 \vspace{0.5 cm}
 \large
 
+\uncover<2->{\textcolor{darkblue}{Concentrate on the {\it minimal set} of type generators:}}
+
+\vspace{0.25 cm}
+\begin{uncoverenv}<3->
 \renewcommand{\arraystretch}{2}
 \begin{tabular}{l p{0.8\linewidth}}
 \textcolor{darkblue}{{\Huge P}{\LARGE rimitives:}} & fixed-width numbers, booleans, characters. \\
@@ -631,16 +635,13 @@ plur.compile.run(arrays, dimuon)
 \textcolor{darkblue}{{\Huge U}{\LARGE nions:}} & set of possible types; runtime object is exactly one possibility. \\
 \textcolor{darkblue}{{\Huge R}{\LARGE ecords:}} & package of several named, typed fields; runtime object has all nested subfields.
 \end{tabular}
+\end{uncoverenv}
 
 \normalsize
-\vspace{0.2 cm}
-\uncover<2->{Other common types (such as strings) can be constructed from these (arbitrary-length list of characters, for instance).}
+\uncover<4->{Other common types (such as strings) can be constructed from these (arbitrary-length list of characters, for instance).}
 
 \vspace{0.2 cm}
-\uncover<3->{It's easier to implement code transformation (AST node rewriting) with as few complications as possible.}
-
-\vspace{0.2 cm}
-\uncover<4->{\mbox{ } \hfill \textcolor{blue}{\url{https://github.com/diana-hep/plur}} \hfill \mbox{ }}
+\uncover<5->{\mbox{ } \hfill \textcolor{blue}{\url{https://github.com/diana-hep/plur}} \hfill \mbox{ }}
 \end{frame}
 
 \begin{frame}{Relationship to Apache Arrow}
@@ -649,67 +650,50 @@ plur.compile.run(arrays, dimuon)
 \begin{columns}
 \column{0.9\linewidth}
 \begin{center}
-The way that \textcolor{darkblue}{Primitives, Lists, (sparse) Unions, and Records} are represented are a subset of the Apache Arrow specification, so that one can run fast Python on Arrow dataframes.
+The way that \textcolor{darkblue}{Primitives, Lists, (sparse) Unions, and Records} are represented are a subset of the Apache Arrow specification, so in principle this ought to make Python--- with arbitrarily nested loops--- fast on Arrow dataframes.
 
-\vspace{0.75 cm}
-\uncover<2->{One important difference: PLUR does not require columns to be laid out in a contiguous block. They may be memory mapped files, generated on demand, streaming from the network, etc.}
+\vspace{-0.75 cm}
+\includegraphics[width=0.65\linewidth]{apache-arrow.png}
+
+\vspace{-0.75 cm}
+\uncover<2->{\LARGE Is anyone else interested in that?}
 \end{center}
 \end{columns}
 \end{frame}
 
-\begin{frame}{Last thought: columnar data management}
+\begin{frame}{Last thought: manage the data in columns, too!}
 \vspace{0.5 cm}
-What if the unit of granularity was a column, rather than a file (set of events)?
-\begin{itemize}
-\item Even Parquet and Arrow bind sets of columns together and call them dataframes.
-\end{itemize}
+\uncover<2->{One reason users copy data is to enrich it with derived features:}
 
 \begin{uncoverenv}<2->
 \begin{center}
-\only<1-2>{\includegraphics[width=0.8\linewidth]{augmentation-example-1.pdf}}
-\only<3>{\includegraphics[width=0.8\linewidth]{augmentation-example-2.pdf}}
-\only<4>{\includegraphics[width=0.8\linewidth]{augmentation-example-3.pdf}}
-\only<5>{\includegraphics[width=0.8\linewidth]{augmentation-example-4.pdf}}
+\only<1-2>{\includegraphics[width=0.7\linewidth]{augmentation-example-1.pdf}}
+\only<3>{\includegraphics[width=0.7\linewidth]{augmentation-example-2.pdf}}
+\only<4>{\includegraphics[width=0.7\linewidth]{augmentation-example-3.pdf}}
+\only<5->{\includegraphics[width=0.7\linewidth]{augmentation-example-4.pdf}}
 \end{center}
 \end{uncoverenv}
+
+\uncover<6->{If the data are addressed as individual columns, rather than files, users can change the structure of the data by adding new columns, {\it without copying.}}
 \end{frame}
 
-\begin{frame}{Last thought: columnar data management}
-\begin{columns}[t]
-\column{0.25\linewidth}
-With a public and well-specified objects-to-columns mapping\ldots
-
-\column{0.25\linewidth}
-And individually addressable arrays in a large column store\ldots
-
-\column{0.25\linewidth}
-Dataframes become metadata, linking old and new columns in new ways\ldots
-\end{columns}
-
-\vspace{0.5 cm}
-\ldots it would suddenly become very inexpensive to make many versions of a big dataset.
-
-\vspace{0.5 cm}
-\textcolor{darkblue}{We can start treating big datasets the way we treat code in git.}
-\end{frame}
-
-\begin{frame}{Conclusions}
+\begin{frame}{}
 \large
 \begin{columns}[t]
 \column{0.3\linewidth}
 \begin{center}
-I hope it was interesting to learn how particle physics analysis is different.
+I hope it was interesting to learn about data issues in particle physics.
 \end{center}
 
-\column{0.6\linewidth}
+\column{0.63\linewidth}
 \begin{center}
-But I really want to hear back from you: do you have suggestions for me or do you think these tools could be useful in your work?
+But I'm really interested in hearing back from you: do you have suggestions or do you think these tools could be useful in your work?
 
 \vspace{0.5 cm}
-I would love to collaborate with an expert!
+If it would help but needs to be more mature, are you interested in collaborating?
 
 \vspace{0.5 cm}
-{\tt jpivarski@gmail.com}
+\fbox{\LARGE \tt pivarski@fnal.gov}
 \end{center}
 
 \end{columns}

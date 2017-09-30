@@ -165,13 +165,13 @@ There are also {\it essential} qualities that current big data systems don't off
 
 \begin{frame}{Why are ``row'' and ``table'' in quotation marks?}
 \vspace{0.75 cm}
-\uncover<2->{\textcolor{darkblue}{\LARGE Particle physics data are not stored in databases.}}
+\uncover<2->{\textcolor{darkblue}{\LARGE Because our data are stored in files, not databases.}}
 
 \vspace{0.5 cm}
 \begin{itemize}\setlength{\itemsep}{0.5 cm}
-\item<3-> We don't benefit from indexing, query planning, or high-level query languages.
-\item<4-> Every data pull is a custom C++ program, accessing lists of files, taking months while the user chases down failures and stragglers.
-\item<5-> But if our data {\it were} in a conventional (relational or NoSQL) database, the first thing we'd do is extract it and work with files again.
+\item<3-> \large We don't benefit from indexing, query planning, or high-level query languages.
+\item<4-> \large Every data pull is a custom C++ program, accessing lists of files, taking months while the user chases down failures and stragglers.
+\item<5-> \large But if our data {\it were} in a conventional (relational or NoSQL) database, the first thing we'd have to do is extract it and work with files again.
 \end{itemize}
 \begin{center}
 \huge \uncover<6->{Why?}
@@ -424,8 +424,11 @@ dataset.histogram(90, 80, 170, flatten({event =>
 \column{0.33\linewidth}
 \uncover<4->{Meanwhile, we discovered that Femtocode's internal data representation is \mbox{\textcolor{darkblue}{orders of magnitude faster}} to scan than our current methods.}
 
-\vspace{0.5 cm}
-\uncover<5->{\fbox{\begin{minipage}{\linewidth}
+\vspace{0.25 cm}
+\uncover<5->{{\it This} is the key issue.}
+
+\vspace{0.25 cm}
+\uncover<6->{\fbox{\begin{minipage}{\linewidth}
 We can apply the new data representation on its own, \mbox{without} \mbox{introducing} a new \mbox{language.}
 \end{minipage}}}
 \end{columns}
